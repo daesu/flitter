@@ -1,0 +1,32 @@
+
+<% if @update.nil? %>
+<% else %>
+<h4>Viewing <%= @who %>'s Flitts </h4>
+<hr>
+<div id="listing" >
+	<% @update.each do |update| %>  
+	<% ago = (Time.now.utc.- update.created_at).round / 60 %>
+	<article>
+	<div id="content" style="padding: 5px;float:left;">
+		<%= update.content %>
+		</div>
+			<br><br><br>
+			<% if ago < 60 %>
+			<p><small>Created <%= ago %> minutes ago</small></p>  
+			<% elsif ago >= 60  %>
+			<p><small>Created <%= ago / 60 %> hours ago</small></p>
+			<% end %>
+			<hr>
+		</article>
+		<br>
+	<% end %>
+
+<div class="digg_pagination">
+    <div class="page_info">
+      <%= page_entries_info @update %>
+    </div>
+    <%= will_paginate @update, :container => false %>
+<% end %>
+  </div>
+</div>
+

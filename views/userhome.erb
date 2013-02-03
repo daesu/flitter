@@ -1,0 +1,68 @@
+
+<div id="postingbox">
+	<form action=<%= session[:user].login %> method="post"> 
+	<textarea id="txtcontent" name="content" maxlength="200" style="width:460px; height:80px"> </textarea>
+	<br>
+	<input type="text" id="counterBox" placeholder="200 Characters remaining" readonly/>
+	<div class="controls"><br>
+	<input name="submitpost" type="submit" value=" Update! "> 
+	</div>
+	</form>
+<div>
+
+<script>
+	<!-- "Client side validation for num of characters" -->
+	var txtcontentvalue = document.querySelector("#txtcontent");
+	var countval = document.querySelector("#counterBox");
+	txtcontentvalue.addEventListener("keydown",function(){
+	var remaining = 0;
+	remaining = 200 - parseInt(txtcontentvalue.value.length);
+	if(remaining < 0)
+	{
+		txtcontentvalue.value = txtcontentvalue.value.substring(0, 200);
+		return false;
+	}
+		countval.value = remaining + " Characters remaining";
+	},true);
+	
+	<!-- "ignore enter key in content box" -->
+	$(txtcontent).keypress(function(event) {
+	if (event.keyCode == 13) {
+	event.preventDefault();
+	}
+	});
+</script>
+  
+<div id="listing">
+	<br>
+	<% if @update.nil? %>
+	<% else %>
+	<% @update.each do |update| %>  
+	<% ago = (Time.now.utc.- update.created_at).round / 60 %>
+	<article>
+		<div id="content" style="padding: 5px;float:left;">
+		<%= update.content %>
+		</div>
+		<br><br><br>
+			<% if ago < 60 %>
+			<p><small>Created <%= ago %> minutes ago</small></p>  
+			<% elsif ago >= 60  %>
+			<p><small>Created <%= ago / 60 %> hours ago</small></p>
+			<% end %>
+			<hr>
+			</article>
+			<br>
+		<% end %> 
+	
+	<div class="digg_pagination">
+    <div class="page_info">
+      <%= page_entries_info @update %>
+		</div>
+		<%= will_paginate @update, :container => false %>
+		<% end %>
+		</div>
+
+
+</div>
+
+

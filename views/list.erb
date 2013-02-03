@@ -1,0 +1,12 @@
+  
+<h4>Viewing All Users </h4>
+<hr>
+		<% @u.each do |user| %>  
+		<a href= <%= '/flitter/user/' + user.login %>><%= user.login %></a>
+		<p>Username: <strong><%= user.login %></strong><br> 
+		Email:  <strong><%= user.email %></strong><br> 
+		Joined Flitter: <%= user.created_at %></p>
+		<% end %>  
+		<hr>
+<br>
+
