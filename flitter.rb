@@ -93,11 +93,6 @@ class Main
 		erb :signup
 	end
 
-	#get '/flitter/user/fbsignup/?' do
-	#	redirect 'https://www.facebook.com/dialog/oauth?client_id=509168959127538&redirect_uri=http://flitters.herokuapp.com/flitter/user/fbsignin&scope=user_about_me&response_type=token'
-
-	#end
-
 	get '/flitter/user/fbsignup' do
 		erb :fbsignup
 	end
